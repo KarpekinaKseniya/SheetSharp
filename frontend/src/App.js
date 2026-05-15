@@ -1,24 +1,17 @@
-import axios from 'axios';
-import './App.css';
+import React from "react";
 
-//data will be the string we send from our server
-const apiCall = () => {
-    axios.get('http://localhost:8080').then((data) => {
-        //this console.log will be in our frontend console
-        console.log(data)
-    })
-}
+import Header from "./components/Header";
+import MainContent from "./components/MainContent";
+import Footer from "./components/Footer";
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-
-                <button onClick={apiCall}>Make API Call</button>
-
-            </header>
+        <div>
+            <Header />
+            <MainContent />
+            <Footer />
         </div>
-    );
+    )
 }
 
 export default App;
