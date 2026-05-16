@@ -14,6 +14,7 @@ const FileUploader = props => {
         const newFile = e.target.files[0];
         console.log(newFile)
         if (newFile) {
+            newFile["SIZE_MB"] = Math.round(newFile.size / 1024 / 1024 * 100) / 100;
             const updatedList = [...fileList, newFile];
             setFileList(updatedList);
             props.onFileChange(updatedList);
@@ -59,7 +60,7 @@ const FileUploader = props => {
                                     ImageConfig['default']} alt="" />
                                     <div className="drop-file-preview__item__info">
                                         <p>{item.name}</p>
-                                        <p>{item.size}B</p>
+                                        <p>{item.SIZE_MB}MB</p>
                                     </div>
                                     <span className="drop-file-preview__item__del"
                                           onClick={() => fileRemove(item)}>
