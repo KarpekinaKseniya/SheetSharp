@@ -12,12 +12,22 @@ const FileUploader = props => {
 
     const onFileDrop = (e) => {
         const newFile = e.target.files[0];
+        const fileType = newFile.type.split("/")[1];
         console.log(newFile)
         if (newFile) {
             newFile["SIZE_MB"] = Math.round(newFile.size / 1024 / 1024 * 100) / 100;
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
-            props.onFileChange(updatedList);
+            if (fileList.length !== 0) {
+                alert("You can work only with 1 file");
+            } else if (fileType !== "vnd.ms-excel" &&
+                fileType !== "vnd.openxmlformats-officedocument.spreadsheetml.sheet" && fileType !== "csv") {
+                alert("Incorrent file type");
+            } else if (newFile["SIZE_MB"] > 10) {
+                alert("Size more 10MB");
+            } else {
+                const updatedList = [...fileList, newFile];
+                setFileList(updatedList);
+                props.onFileChange(updatedList);
+            }
         }
     }
 
