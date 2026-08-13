@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './drop-file-input.css';
 import {ImageConfig} from "../config/ImageConfig";
 import { MdDeleteForever } from "react-icons/md";
+import ErrorWindow from './ErrorWindow';
 
 const FileUploader = props => {
     const wrapperRef = useRef(null);
@@ -10,6 +11,7 @@ const FileUploader = props => {
     const onDragEnter = () => wrapperRef.current.classList.add('dragover');
     const onDragLeave = () => wrapperRef.current.classList.remove('dragover');
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
+    const [errorMessage, setErrorMessage] = useState("");
 
     const onFileDrop = (e) => {
         const newFile = e.target.files[0];
@@ -18,12 +20,12 @@ const FileUploader = props => {
         if (newFile) {
             newFile["SIZE_MB"] = Math.round(newFile.size / 1024 / 1024 * 100) / 100;
             if (fileList.length !== 0) {
-                alert("You can work only with 1 file");
+                setErrorMessage("You can work only with 1 file");
             } else if (fileType !== "vnd.ms-excel" &&
                 fileType !== "vnd.openxmlformats-officedocument.spreadsheetml.sheet" && fileType !== "csv") {
-                alert("Incorrent file type");
+                setErrorMessage("Incorrent file type");
             } else if (newFile["SIZE_MB"] > 10) {
-                alert("Size more 10MB");
+                setErrorMessage("Size more 10MB");
             } else {
                 const updatedList = [...fileList, newFile];
                 setFileList(updatedList);
@@ -83,6 +85,10 @@ const FileUploader = props => {
                     </div>
                 ) : null
             }
+            <ErrorWindow
+                message={errorMessage}
+                onClose={() => setErrorMessage("")}
+            />
         </div>
     );
 }
