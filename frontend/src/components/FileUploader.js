@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './drop-file-input.css';
 import {ImageConfig} from "../config/ImageConfig";
+import { MdDeleteForever } from "react-icons/md";
 
 const FileUploader = props => {
     const wrapperRef = useRef(null);
@@ -74,7 +75,7 @@ const FileUploader = props => {
                                     </div>
                                     <span className="drop-file-preview__item__del"
                                           onClick={() => fileRemove(item)}>
-                                        x
+                                        <MdDeleteForever className="drop-file-preview__icon__del"/>
                                     </span>
                                 </div>
                             ))

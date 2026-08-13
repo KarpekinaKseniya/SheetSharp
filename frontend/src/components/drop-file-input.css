@@ -79,22 +79,21 @@
     flex-direction: column;
     justify-content: space-between;
 }
-
+.drop-file-preview__icon__del {
+    height: 35px;
+    width: 35px;
+}
 .drop-file-preview__item__del {
-    background-color: var(--box-bg);
-    width: 40px;
-    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 10px;
+    right: 0px;
     top: 50%;
     transform: translateY(-50%);
     box-shadow: var(--box-shadow);
     cursor: pointer;
-    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
