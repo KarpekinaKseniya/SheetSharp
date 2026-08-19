@@ -19,6 +19,7 @@ const FileUploader = props => {
         console.log(newFile)
         if (newFile) {
             newFile["SIZE_MB"] = Math.round(newFile.size / 1024 / 1024 * 100) / 100;
+            newFile["SIZE"] = formattingFileSize(newFile.size);
             if (fileList.length !== 0) {
                 setErrorMessage("You can work only with 1 file");
             } else if (fileType !== "vnd.ms-excel" &&
@@ -32,6 +33,15 @@ const FileUploader = props => {
                 props.onFileChange(updatedList);
             }
         }
+    }
+
+    const formattingFileSize = (fileSize) => {
+        const sizeType = ["B", "KB", "MB", "GB"];
+        const kb = 1024;
+        const i = Math.floor(Math.log(fileSize) / Math.log(kb));
+        const size = fileSize / Math.pow(kb, i);
+        const formatted = Number.isInteger(size) ? size.toString() : size.toFixed(2);
+        return `${formatted} ${sizeType[i]}`;
     }
 
     const fileRemove = (file) => {
@@ -73,7 +83,7 @@ const FileUploader = props => {
                                     ImageConfig['default']} alt="" />
                                     <div className="drop-file-preview__item__info">
                                         <p>{item.name}</p>
-                                        <p>{item.SIZE_MB}MB</p>
+                                        <p>{item.SIZE}</p>
                                     </div>
                                     <span className="drop-file-preview__item__del"
                                           onClick={() => fileRemove(item)}>
